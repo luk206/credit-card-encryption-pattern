@@ -1,11 +1,10 @@
 # Lab: Envelope Encryption with AWS KMS and Role Separation
----
 
 This lab demonstrates how to handle sensitive information (e.g., credit cards) using **AWS KMS**, applying a pattern of **role separation** and **encrypted data keys**.  
 The goal is not just to protect the credit card itself (encryption does that), but to **protect the organization and minimize human/operational risks**.
 
+
 ## Context
----
 
 In distributed and multi-tenant systems:
 
@@ -15,8 +14,8 @@ In distributed and multi-tenant systems:
 
 > This pattern ensures that the component creating containers **never sees plaintext keys or sensitive data**.
 
+
 ## Workflow
----
 
 1. **Customer onboarding**
     - Platform calls `GenerateDataKeyWithoutPlaintext` from KMS.
@@ -37,7 +36,6 @@ In distributed and multi-tenant systems:
 
 
 ## Roles and Permissions
----
 
 | Role | KMS Permissions | Function |
 |------|----------------|---------|
@@ -46,16 +44,16 @@ In distributed and multi-tenant systems:
 | Payments / Processing | `kms:Decrypt` (data key) | Decrypt cards to process payments |
 | Storage | None | Stores only encrypted cards and encrypted data keys |
 
+
 ## Benefits of this Pattern
----
 
 - 🔒 **Separation of responsibilities**: Minimizes human and access risks.
 - 🔒 **Limited blast radius**: If one role is compromised, historical cards remain protected.
 - 🔒 **Compliance**: Facilitates PCI-DSS and SOC2 audits.
 - 🔒 **Key rotation and revocation**: Each vault can have its own data key, making rotation easier without re-encrypting all data.
 
+
 ## Example Repo Structure
----
 
 kms-envelope-encryption-lab/
 ├── README.md
@@ -72,8 +70,7 @@ kms-envelope-encryption-lab/
 - `decrypt_card.py`: Payments processing decrypts cards when needed.
 - `cleanup.sh`: Cleanup of simulated resources.
 
-
-
+  
 ```mermaid
 flowchart LR
     A[Platform / Dev] -->|Generate encrypted data key| B[Vault / Storage]
@@ -89,6 +86,7 @@ flowchart LR
     style B fill:#fff,stroke:#333,stroke-width:2px
 ```
 
+
 ### Diagram Explanation
 
 - **A – Platform / Dev**: creates the vault and generates the `encrypted_data_key` with KMS, never sees plaintext data.  
@@ -103,23 +101,12 @@ flowchart LR
 - **White (B)** → Vault / Storage  
 
 
-
-💡 **Mermaid Advantages:**  
-- Directly renders on GitHub, no image uploads required.  
-- Easy to update as roles or flows change.  
-
-If you want, I can create **an advanced version** that also shows **KMS permissions (Encrypt-only vs Decrypt)** so it becomes even more didactic.  
-
-Do you want me to make that advanced version?
-
-
 ## Important Notes
 
 - This lab is **not production-ready**.
 - It does not include full tokenization or advanced key rotation.
 - The goal is **to understand the pattern and responsibility flow**.
 
----
 
 ## References
 
