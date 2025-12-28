@@ -80,10 +80,10 @@ flowchart LR
     D[Payments / Processing] -->|Retrieve encrypted_data_key| B
     D -->|Decrypt in memory to process payment| B
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style C fill:#9f9,stroke:#333,stroke-width:2px
-    style D fill:#9ff,stroke:#333,stroke-width:2px
-    style B fill:#fff,stroke:#333,stroke-width:2px
+    style A fill:#6ab04c,stroke:#333,stroke-width:2px   %% Green - Low Risk
+    style C fill:#f0932b,stroke:#333,stroke-width:2px   %% Orange - Medium Risk
+    style D fill:#eb4d4b,stroke:#333,stroke-width:2px   %% Red - High Risk
+    style B fill:#dcdde1,stroke:#333,stroke-width:2px  %% Gray - Storage
 ```
 
 
@@ -95,10 +95,10 @@ flowchart LR
 - **D – Payments / Processing**: temporarily decrypts the data key to process payments, separated from the ingestion flow.  
 
 **Colors:**  
-- **Magenta (A)** → Platform / Dev  
-- **Green (C)** → Payments Ingest  
-- **Blue (D)** → Payments Processing  
-- **White (B)** → Vault / Storage  
+- **Green (A)** → Platform / Dev  
+- **Orange (C)** → Payments Ingest  
+- **Red (D)** → Payments Processing  
+- **Gray (B)** → Vault / Storage  
 
 
 ## Important Notes
