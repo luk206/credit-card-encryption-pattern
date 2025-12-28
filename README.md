@@ -55,22 +55,16 @@ In distributed and multi-tenant systems:
 
 ## Example Repo Structure
 
+```text
 kms-envelope-encryption-lab/
 ├── README.md
 ├── dev_component/
-│ └── create_vault.py
+│   └── create_vault.py
 ├── payments_component/
-│ ├── encrypt_card.py
-│ └── decrypt_card.py
+│   ├── encrypt_card.py
+│   └── decrypt_card.py
 └── cleanup.sh
-
-
-- `create_vault.py`: Simulates Platform creating a vault and storing the `encrypted_data_key`.
-- `encrypt_card.py`: Payments encrypts cards using the data key in memory.
-- `decrypt_card.py`: Payments processing decrypts cards when needed.
-- `cleanup.sh`: Cleanup of simulated resources.
-
-  
+``` 
 ```mermaid
 flowchart LR
     A[Platform / Dev] -->|Generate encrypted data key| B[Vault / Storage]
@@ -83,7 +77,6 @@ flowchart LR
     style A fill:#6ab04c,stroke:#333,stroke-width:2px   %% Green - Low Risk
     style C fill:#f0932b,stroke:#333,stroke-width:2px   %% Orange - Medium Risk
     style D fill:#eb4d4b,stroke:#333,stroke-width:2px   %% Red - High Risk
-    style B fill:#dcdde1,stroke:#333,stroke-width:2px  %% Gray - Storage
 ```
 
 
@@ -93,12 +86,6 @@ flowchart LR
 - **B – Vault / Storage**: stores the encrypted data key and the encrypted cards.  
 - **C – Payments / Ingest**: temporarily decrypts the data key in memory to encrypt new cards, then deletes the key.  
 - **D – Payments / Processing**: temporarily decrypts the data key to process payments, separated from the ingestion flow.  
-
-**Colors:**  
-- **Green (A)** → Platform / Dev  
-- **Orange (C)** → Payments Ingest  
-- **Red (D)** → Payments Processing  
-- **Gray (B)** → Vault / Storage  
 
 
 ## Important Notes
